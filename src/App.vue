@@ -10,31 +10,46 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div class="bottom"></div>
-    <div class="main"></div>
+    <div class="main">
+      <my-canvas :msg="model.properties.name"></my-canvas>
+    </div>
+    <div class="bottom">
+      <my-panel :name="model.properties.name"></my-panel>
+    </div>
     <div class="right"></div>
   </div>
 </template>
 
 <script>
+import MyCanvas from './components/MyCanvas'
+import MyPanel from './components/MyPanel'
+import MockModels from './mock/Models'
+
 export default {
   name: "app",
-  components: {},
-  data: () => {
+  components: {
+    MyCanvas,
+    MyPanel
+  },
+  data () {
     return {
-      activeIndex: 1,
+      activeIndex: '1',
       collapeRight: false,
-      collapeBottom: false
+      collapeBottom: false,
+      model: MockModels.model1
     };
   },
   methods: {
     menuSelect: function(i) {
       switch (i) {
-        case "2-1":
+        case '2-1':
           this.collapeRight = !this.collapeRight;
           break;
-        case "2-2":
+        case '2-2':
           this.collapeBottom = !this.collapeBottom;
+          break;
+        case '1':
+          console.log(this.model);
           break;
         default:
           break;
@@ -70,12 +85,12 @@ body {
 #app .top {
   grid-area: 1 / 1 / span 1 / span 2;
 }
+#app .main {
+  grid-area: 2 / 1;
+}
 #app .bottom {
   grid-area: 3 / 1;
   background-color: #eee;
-}
-#app .main {
-  grid-area: 2 / 1;
 }
 #app .right {
   grid-area: 2 / 2 / span 2 / span 1;
